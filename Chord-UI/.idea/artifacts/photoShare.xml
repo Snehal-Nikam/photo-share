@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="photoShare">
+    <output-path>$PROJECT_DIR$/out/artifacts/photoSharing/</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Chord-UI" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="Chord-UI/web/Web" />
+      <element id="javaee-facet-resources" facet="Chord-UI/web/Web2" />
+    </root>
+  </artifact>
+</component>

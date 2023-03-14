@@ -9,6 +9,8 @@ public class ConfigHelper {
     private static HashMap<String, Integer> referenceMap;
     private static HashMap<Integer, String> ipMap;
 
+    private static HashMap<Integer, Integer> backUpNodes;
+
     public static HashMap<String, Integer> getReferenceMap() {
         referenceMap = new HashMap<>();
         try (BufferedReader br = new BufferedReader(new FileReader("ref.txt"))) {
@@ -21,6 +23,20 @@ public class ConfigHelper {
             return null;
         }
         return referenceMap;
+    }
+
+    public static HashMap<Integer, Integer> getBackUpReferenceMap() {
+        backUpNodes = new HashMap<>();
+        try (BufferedReader br = new BufferedReader(new FileReader("backupTag.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                backUpNodes.put(Integer.parseInt(line.split(",")[0]), Integer.parseInt(line.split(",")[1]));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return backUpNodes;
     }
 
     public static HashMap<Integer, String> getIpMap() {

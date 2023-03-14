@@ -40,11 +40,12 @@ public class MessagePassingThread extends Thread {
                 out = new DataOutputStream(socket.getOutputStream());
                 PersistentLogger.log("accp tag: " + tag);
                 if (tag.equals("null")) return;
-                int tagNode;
-                 try {
+                int tagNode,backupNode;
+                 if(Constants._refMap.containsKey(tag)) {
                     tagNode = Constants._refMap.get(tag);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } else {
+                     out.writeBytes("NO_TAG\r\n");
+                    //e.printStackTrace();
                     return;
                 }
                 System.out.println("*** : "+tagNode);
@@ -64,9 +65,18 @@ public class MessagePassingThread extends Thread {
                     }
 
 
-                } else {
-                    // Send back the IP of correct node
+                } else if(Constants._backref.containsKey(tagNode) && Constants._backref.get(tagNode)==node.getId()){
+                    out.writeBytes("IMAGES\r\n");
 
+                    for (File file : new File(Constants._photoStoragePathB + tag).listFiles()) {
+                        System.out.println("*** : "+file.getName());
+                        if (!file.getName().contains("jpg"))
+                            continue;
+                        PersistentLogger.log("Sending files: " + file.getName());
+                        String encoded = Base64.getEncoder().encodeToString(Files.readAllBytes(file.toPath()));
+                        out.writeBytes(encoded + "\r\n");
+                    }
+                }else {
                     PersistentLogger.log("Not valid node send back correct IP");
                     out.writeBytes("IP\r\n");
                     out.writeBytes(Constants._nodeIpMap.get(tagNode) + "\r\n");
@@ -77,9 +87,10 @@ public class MessagePassingThread extends Thread {
                 reader.close();
                 socket.close();
             } catch (IOException e) {
-
+                System.out.println("Catch block");
                 e.printStackTrace();
                 try {
+                    out.writeBytes("ERROR\r\n");
                     out.close();
                 } catch (IOException e1) {
                     e1.printStackTrace();

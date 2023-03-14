@@ -8,19 +8,15 @@ import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-//import javax.servlet.ServletException;
-//import javax.servlet.annotation.WebServlet;
-//import javax.servlet.http.HttpServlet;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
-//import javax.servlet.annotation.WebServlet;
-
-
 @WebServlet("/photoShare/home")
 public class HomeServlet extends HttpServlet {
     PrintWriter out;
+    public static String tag;
+    public static String node;
 
+    public static boolean _backup;
 
+    public static int _retryCount;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -62,43 +58,42 @@ public class HomeServlet extends HttpServlet {
         }
 
 
-        String node = request.getParameter("node");
-        String tag = request.getParameter("tag");
+        node = request.getParameter("node");
+        tag = request.getParameter("tag");
+        _retryCount=0;
         System.out.println("*** node"+node);
         if (node.equals("null") || node.equals("null")) {
             return;
         }
+        _retryCount=0;
         requestChord(node, tag, out);
 
     }
-
-    private void requestChord(String IP, String tag, PrintWriter out) throws IOException {
+    public static void requestChord(String IP, String tag, PrintWriter out) throws IOException {
         Socket client = new Socket();
-
-
-
-
         long time = System.currentTimeMillis();
 
         try {
+            System.out.println("making connection");
             client.connect(new InetSocketAddress(IP, 5678), 2000);
         } catch (Exception e) {
             ErrorHandler.ShowSocketError(out, e.getMessage() + " IP: " + IP);
             return;
         }
+        System.out.println("*******");
         BufferedWriter os = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
         BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-        os.write(tag + "\r\n");
+        //System.out.println(tag +":" + String.valueOf(backup));
+        os.write(tag +"\r\n");
+        if (_backup) os.write("true");
         os.flush();
-        // String result = in.readLine();
-
-        // byte[] res = new byte[1024 * 1024 * 8];
 
         String res = in.readLine();
 
-        System.out.print(res);
+
         if (res.equals("IP")) {
             res = in.readLine();
+            System.out.print(res);
             os.close();
             in.close();
             client.close();
@@ -111,6 +106,10 @@ public class HomeServlet extends HttpServlet {
             }
             out.println(" </div>");
             out.println("<br /><br /> <h3><b>Total time: " + (float) (System.currentTimeMillis() - time) / 1000 + "s </b></h3>");
+        }else if(res.equals("NO_TAG")){
+            out.println("<div>Sorry.. the images for this tag is not present in the network currently!</div>");
+        }else if(res.equals("ERROR")){
+            out.println("<div>"+ in.readLine()+"</div>");
         }
     }
 

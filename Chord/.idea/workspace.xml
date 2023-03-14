@@ -12,9 +12,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46afe717-614e-4a2a-a2f3-08f74d77de01" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Chord-UI/out/artifacts/photoSharing/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../Chord-UI/out/artifacts/photoSharing/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/edu/scu/util/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/edu/scu/util/Util.java" afterDir="false" />
+    <list default="true" id="46afe717-614e-4a2a-a2f3-08f74d77de01" name="Default Changelist" comment="Java refactor">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/edu/scu/config/ConfigHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/edu/scu/config/ConfigHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/edu/scu/thread/MessagePassingThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/edu/scu/thread/MessagePassingThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/edu/scu/util/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/edu/scu/util/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/Chord_jar/Chord.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/Chord_jar/Chord.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -216,6 +219,7 @@
       <workItem from="1678404559059" duration="1922000" />
       <workItem from="1678480208730" duration="208000" />
       <workItem from="1678492690996" duration="5050000" />
+      <workItem from="1678749731810" duration="3313000" />
     </task>
     <task id="LOCAL-00001" summary="cleanup">
       <created>1552252684047</created>
